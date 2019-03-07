@@ -1,6 +1,6 @@
 {
   "name": "@cubbles/react-js-boilerplate",
-  "version": "1.0.0",
+  "version": "1.0.0-SNAPSHOT",
   "description": "Boilerplate to build Cubbles Artifacts using react-js",
   "private": true,
   "repository": {
