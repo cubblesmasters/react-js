@@ -7,6 +7,12 @@ module.exports = (webpackageName) => {
     slots: [
       { slotId: "number", type: "number", direction: ["input", "output"] }
     ],
+    runnables: [
+      {
+        "name": "SHOWROOM",
+        "path": "/SHOWROOM.html"
+      }
+    ],
     resources: [
       "element.html"
     ],
