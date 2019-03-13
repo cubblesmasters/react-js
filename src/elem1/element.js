@@ -1,21 +1,12 @@
-import './element.sss'
+import './element.sss';
+import MessageDisplayer from './react-element';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
 (function () {
-  'use strict';
+  'use strict'; 
 
-  class MessageDisplayer extends React.Component {
-    render () {
-      return (
-        <div className="/* @echo webpackageName */_msg_div">
-          Current value: <span className="/* @echo webpackageName */_msg">{this.props.message}</span>
-        </div>
-      );
-    }
-  }
-
-  // Call CubxPolymer Factory Method for registiering <react-todo-list> Cubbles Component
+  // Call CubxPolymer Factory Method for registiering /* @echo elementName */ Cubbles Component
   CubxComponent({
     is: '/* @echo elementName */',
 
@@ -65,6 +56,7 @@ import ReactDOM from 'react-dom';
     },
 
     _render: function () {
+      // Render the MessageDisplayer react component
       ReactDOM.render(<MessageDisplayer message={this.model.number}/>, this.querySelector('#reactRoot'));
     }
   });
