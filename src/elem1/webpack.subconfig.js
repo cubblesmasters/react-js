@@ -19,7 +19,7 @@ const config = {
   module: {
     rules: [
         {
-          // manage placeholders in js files
+          // manage placeholders in js/jsx files
           test: /\.(js|jsx)$/,
           use: [
             {
@@ -29,6 +29,7 @@ const config = {
                 webpackageName: `${webpackageName}`
               }
             },
+            // Use babel-loader to compile react-js code
             {
               loader: 'babel-loader'
             }
@@ -82,7 +83,7 @@ const config = {
   },
   plugins: [
     new CopyWebpackPlugin([
-            { from: '**/*.md', to: distFolder }
+        { from: '**/*.md', to: distFolder }
       ], {}),
     new HtmlWebpackPlugin({
         template: 'element.html',

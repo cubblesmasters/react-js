@@ -21,7 +21,7 @@ const baseConfig = {
   },
   plugins: [
     new CopyWebpackPlugin([
-            { from: 'README.md', to: 'README.md' }
+      { from: 'README.md', to: 'README.md' }
     ], {}),
     new HtmlWebpackPlugin({
       template: 'index.html',
@@ -32,7 +32,7 @@ const baseConfig = {
         artifactIndex: `${wpkgUtils.generateArtifactsIndex()}`
       }
     }),
-        // NOTE: The file will re-generated while watching the files.
+        // NOTE: The file will be re-generated while watching the files.
         // @see https://github.com/webpack/webpack/issues/2919
         // Perhaps ... https://github.com/webpack/webpack/issues/2919#issuecomment-245390239
         // ... https://webpack.js.org/api/compiler-hooks/#watching
