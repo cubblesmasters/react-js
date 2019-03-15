@@ -58,6 +58,10 @@ import ReactDOM from 'react-dom';
     updateNumberInput: function (number) {
       if (this.ready) {
         this.numberInput.value = number;
+        // Set the new slot value using the model object to avoid an infinite loop calling setNumer()
+        this.model.number = number;
+        // Propagate the value, so that it is available when this slot is connected to another slot (in a compound component)
+        this.repropagateNumber();
       }
     },
 
