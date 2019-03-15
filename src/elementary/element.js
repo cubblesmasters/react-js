@@ -1,5 +1,5 @@
 import './element.sss';
-import MessageDisplayer from './react-element'; // import the react component
+import ReactRangeInput from './react-element'; // import the react component
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -20,8 +20,8 @@ import ReactDOM from 'react-dom';
      * Manipulate an element’s local DOM when the element is created and initialized.
      */
     ready: function () {
-      let input = this.querySelector('#slotNumber');
-      input.addEventListener('change', function(event) {
+      this.numberInput = this.querySelector('#slotNumber');
+      this.numberInput.addEventListener('change', function(event) {
         this.setNumber(event.target.value);
       }.bind(this));
     },
@@ -43,6 +43,7 @@ import ReactDOM from 'react-dom';
      */
     contextReady: function () {
       this.ready = true;
+      this._renderReactComponent();
     },
 
     /**
@@ -50,13 +51,22 @@ import ReactDOM from 'react-dom';
      */
     modelNumberChanged: function (newValue) {
       if (this.ready) {
-        this._render();
+        this.reactComponent.updateNumber(newValue);
       }
     },
 
-    _render: function () {
+    updateNumberInput: function (number) {
+      if (this.ready) {
+        this.numberInput.value = number;
+      }
+    },
+
+    _renderReactComponent: function () {
       // Render the MessageDisplayer react component, set a prop based on the model of the /* @echo elementName */ component
-      ReactDOM.render(<MessageDisplayer message={this.model.number}/>, this.querySelector('#reactRoot'));
+      ReactDOM.render(
+        <ReactRangeInput ref={(reactComponent) => {this.reactComponent = reactComponent}}  afterChangeCallback={this.updateNumberInput.bind(this)}/>,
+        this.querySelector('#reactRoot')
+      );
     }
   });
 }());

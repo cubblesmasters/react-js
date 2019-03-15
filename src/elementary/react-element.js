@@ -1,14 +1,36 @@
 import React from 'react';
 
-// MessageDisplayer react compoent
-class MessageDisplayer extends React.Component {
+// ReactRangeInput react compoent
+class ReactRangeInput extends React.Component {
+    constructor (props) {
+        super(props);
+        this.state = {value: ''};
+
+        this.handleChange = this.handleChange.bind(this);
+        this.updateNumber = this.updateNumber.bind(this);
+    }
+    
+    handleChange (event) {
+        this.setState({value: event.target.value});
+        this.props.afterChangeCallback(event.target.value);
+    }
+
+    updateNumber (value) {
+        this.setState({value: value});
+    }
+
     render () {
         return (
-        <div className="/* @echo webpackageName */_msg_div">
-            Current value: <span className="/* @echo webpackageName */_msg">{this.props.message}</span>
+        <div className="/* @echo webpackageName */_container">
+            <label htmlFor="slotNumber">Slot 'number'</label>
+            <input
+                type="range"
+                id="slotNumber"
+                value={this.state.value}
+                onChange={this.handleChange}/>
         </div>
         );
     }
 }
 
-export default MessageDisplayer;
+export default ReactRangeInput;
