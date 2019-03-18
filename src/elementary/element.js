@@ -66,7 +66,7 @@ import ReactDOM from 'react-dom';
     },
 
     _renderReactComponent: function () {
-      // Render the MessageDisplayer react component, set a prop based on the model of the /* @echo elementName */ component
+      // Render the react component, set a prop based on the model of the /* @echo elementName */ component
       ReactDOM.render(
         <ReactRangeInput ref={(reactComponent) => {this.reactComponent = reactComponent}}  afterChangeCallback={this.updateNumberInput.bind(this)}/>,
         this.querySelector('#reactRoot')
