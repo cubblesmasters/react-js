@@ -40,31 +40,33 @@ You should implement the React components that you need in the `src` folder as f
 import React from 'react';
 
 class MyReactComponent extends React.Component {
-    //...
+    constructor (props) {
+      super(props);
+
+      this.aMethodFromReactComponent = this.aMethodFromReactComponent.bind(this);
+      this.anotherMethodFromReactComponent = this.anotherMethodFromReactComponent.bind(this);
+    }
+
+    aMethodFromReactComponent () {
+      //...
+      console.log(this.props.myPropValue);
+    }
+
+    anotherMethodFromReactComponent () {
+      this.props.myPropMethod();
+    }
+
+    render () {
+      return (
+      //...
+      );
+    }
 }
 ```
 
-### Using your REact components within an elementary Cubbles component
+### Using your React components within an elementary Cubbles component
 
-You should import them in the script of your Cubbles component, as follows:
-
-```javascript
-import MyReactComponent from './path-to-react-element'; // import the react component
-import React from 'react';
-import ReactDOM from 'react-dom';
-
-(function () {
-  'use strict';
-
-  // Call CubxPolymer Factory Method for registiering /* @echo elementName */ Cubbles Component
-  CubxComponent({
-    is: '/* @echo elementName */',
-    //...
-  });
-}());
-```
-
-You can render your React component when you needed (e.g. when the cubbles component is ready or after a slot value changes):
+You should import the desired react components and the needed React libraries in the script of your Cubbles component. Then, you can render your React component when you need it (e.g. when the cubbles component is ready or after a slot value changes):
 
 ```javascript
 import MyReactComponent from './path-to-react-element'; // import the react component
@@ -144,7 +146,7 @@ import ReactDOM from 'react-dom';
     _renderReactComponent: function () {
       // Render the react component
       ReactDOM.render(
-        <MyReactComponent prop={this.model.slotId}/>,
+        <MyReactComponent myPropValue={this.model.slotId}/>,
         this.querySelector('#reactRoot')
       );
     }
@@ -182,14 +184,14 @@ import ReactDOM from 'react-dom';
      */
     modelSlotIdChanged: function (newValue) {
       if (this.ready) {
-        this.reactComponent.aMethodFromReactComponent();
+        this.myReactComponent.aMethodFromReactComponent();
       }
     },
 
     _renderReactComponent: function () {
       // Render the react component
       ReactDOM.render(
-        <MyReactComponent ref={(reactComponent) => {this.reactComponent = reactComponent}}/>,
+        <MyReactComponent ref={(reactComponentRef) => {this.myReactComponent = reactComponentRef}}/>,
         this.querySelector('#reactRoot')
       );
     }
@@ -199,7 +201,7 @@ import ReactDOM from 'react-dom';
 
 ### Accessing a Cubbles component from a React component
 
-A way to access an elementary Cubbles component from a React component is by passing a reference to a method (e.g. the setter of a slot value) using a `prop`. In the React component you just need to call it; i.e. `this.props.prop()`:
+A way to access an elementary Cubbles component from a React component is by passing a reference to a method (e.g. the setter of a slot value) using a `myPropMethod`. In the React component you just need to call it; i.e. `this.props.myPropMethod()`:
 
 ```javascript
 import MyReactComponent from './path-to-react-element'; // import the react component
@@ -225,7 +227,7 @@ import ReactDOM from 'react-dom';
     _renderReactComponent: function () {
       // Render the react component
       ReactDOM.render(
-        <MyReactComponent prop={this.setSlotId.bind(this)}/>,
+        <MyReactComponent myPropMethod={this.setSlotId.bind(this)}/>,
         this.querySelector('#reactRoot')
       );
     }
@@ -238,7 +240,7 @@ import ReactDOM from 'react-dom';
 If you check the `src` folder of this boilerplate, you will find a folder called `elementary` folder that contains two scripts:
 
 * **react-element.js**: contains the implementation of the React component that interacts with the Cubbles component.
-* * **element.js**: contains the logic of a Cubbles elementary that interacts with a React component. As you see, the React component and libraries are imported in the first lines of this file.
+* **element.js**: contains the logic of a Cubbles elementary that interacts with a React component. As you see, the React component and libraries are imported in the first lines of this file.
 
 This sample implements a bidirectional interaction between a Cubbles component and a React component following the guidelines presented above. A demo of this component is available [online](https://cubbles.world/sandbox/cubbles-react-js-boilerplate@1.0.0-SNAPSHOT/cubbles-react-js-boilerplate-elementary/SHOWROOM.html).
 
