@@ -3,6 +3,7 @@ const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const GenerateJsonPlugin = require('generate-json-webpack-plugin');
+const FileManagerPlugin = require('filemanager-webpack-plugin');
 const wpkgUtils = require('@cubbles/wpkg-utils');
 const distFolder = path.resolve(__dirname, '../dist', wpkgUtils.getWebpackageName);
 
@@ -36,7 +37,18 @@ const baseConfig = {
         // @see https://github.com/webpack/webpack/issues/2919
         // Perhaps ... https://github.com/webpack/webpack/issues/2919#issuecomment-245390239
         // ... https://webpack.js.org/api/compiler-hooks/#watching
-    new GenerateJsonPlugin('manifest.webpackage', wpkgUtils.getManifestWebpackage, null, 2)
+    new GenerateJsonPlugin('manifest.webpackage', wpkgUtils.getManifestWebpackage, null, 2),
+    new FileManagerPlugin({
+      onEnd: {
+        archive: [
+          {
+            source: path.resolve(__dirname),
+            destination: path.join(distFolder, `${wpkgUtils.getWebpackageName}.tar.gz`),
+            format: 'tar'
+          },
+        ]
+      }
+    })
   ],
 
     /**
