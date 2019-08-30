@@ -21,7 +21,7 @@ import ReactDOM from 'react-dom';
      */
     ready: function () {
       this.numberInput = this.querySelector('#slotNumber');
-      this.numberInput.addEventListener('change', function(event) {
+      this.numberInput.addEventListener('input', function(event) {
         this.setNumber(event.target.value);
       }.bind(this));
     },
